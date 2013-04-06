@@ -97,4 +97,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   middleman (~> 3.0.13)
+  sass

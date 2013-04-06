@@ -6,7 +6,7 @@
 
 KeyLauncher.VERSION = "0.0.1"
 
-KeyLauncher.on = (keycommand, launchFn=->, options={})->
+KeyLauncher.on = (keycommand, launchFn, options={})->
   throw "Must specify a valid key command" unless keycommand?
   
   launcher = new KeyLauncher.Launcher
@@ -14,4 +14,5 @@ KeyLauncher.on = (keycommand, launchFn=->, options={})->
     fn: launchFn || ->
     requires: options.requires || []
 
-  key(keycommand, launcher.run) 
+  key keycommand, -> 
+    launcher.run.call(launcher)
