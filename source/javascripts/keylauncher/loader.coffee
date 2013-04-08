@@ -4,6 +4,13 @@ window.KeyLauncher.util ||= {}
 loadedScripts = {}
 scriptTimers = {}
 
+KeyLauncher.util.loadStylesheet = (url, options={}, callback)->
+  ss = document.createElement("link")
+  ss.type = "text/css"
+  ss.rel = "stylesheet"
+  ss.href = url 
+  document.getElementsByTagName("head")[0].appendChild(ss);  
+
 KeyLauncher.util.loadScript = (url, options={}, callback) ->
   loaded = loadedScripts 
   timers = scriptTimers 

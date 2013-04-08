@@ -18,7 +18,11 @@ class window.KeyLauncher.Launcher
   run: ()->
     return @onReady() if @isReady()
     
-    for dependency, status of @_dependencies when status.loaded isnt true
+    for dependency, status of @_dependencies when status.loaded isnt true and dependency.match(/\.css/)
+      KeyLauncher.util.loadStylesheet dependency, =>
+        @_dependencies[dependency].loaded = true
+
+    for dependency, status of @_dependencies when status.loaded isnt true and dependency.match(/\.js/)
       KeyLauncher.util.loadScript dependency, =>
         @_dependencies[dependency].loaded = true
 
