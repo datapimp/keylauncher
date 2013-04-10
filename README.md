@@ -9,9 +9,12 @@ I use this library to embed small single purpose javascript widgets and applicat
 An example: as an app which takes a screenshot of the current webpage with a bug on it, and submits a github issue with that data.
 
 ```coffeescript
-# Whenever the user types the word 'sync' in a non text input
-KeyLauncher.onSequence "sync", ()->
-  alert 'sync sequence detected'
+# Whenever the user types the word 'shake' in a non text input
+KeyLauncher.onSequence "shake", ()->
+  $('body').html '<iframe width="560" height="315" src="http://www.youtube.com/embed/3R8HGsbI4QY" frameborder="0" allowfullscreen></iframe>'
+, requires:[
+  "//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js",
+]
 
 # Basic delegate to keymaster
 KeyLauncher.on "shift+command+j", ()->

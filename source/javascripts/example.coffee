@@ -1,13 +1,16 @@
-# Whenever the user types the word 'sync' in a non text input
-KeyLauncher.onSequence "sync", ()->
-  alert 'sync sequence detected'
+# Type the word shake
+KeyLauncher.onSequence "shake", ()->
+  $('body').html '<iframe width="560" height="315" src="http://www.youtube.com/embed/3R8HGsbI4QY" frameborder="0" allowfullscreen></iframe>'
+, requires:[
+  "//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js",
+]
 
 # Basic delegate to keymaster
 KeyLauncher.on "shift+command+j", ()->
   alert 'normal key commands work too'
 
 # Specify dependencies to load before running the command
-window.requiresLauncher = KeyLauncher.on "command+j", ()->
+KeyLauncher.on "command+j", ()->
   if _.isObject(Backbone)
     $('body').append "We loaded underscore, backbone, and zepto"
 
