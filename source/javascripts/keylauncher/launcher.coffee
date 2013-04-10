@@ -4,7 +4,7 @@ class window.KeyLauncher.Launcher
   _dependencies: {}
 
   constructor: (@options={})->
-    @fn = options.fn 
+    @fn = options.fn
     @command = options.command
 
     for dependency in @options.requires
@@ -13,24 +13,24 @@ class window.KeyLauncher.Launcher
   # The run method gets triggered when the keycommand
   # is detected, it will ensure all of the dependencies
   # are loaded and once it is comfortable they are, then
-  # it will run the user specified method and launch the 
+  # it will run the user specified method and launch the
   # application.
   run: ()->
     return @onReady() if @isReady()
-    
+
     for dependency, status of @_dependencies when status.loaded isnt true and dependency.match(/\.css/)
-      KeyLauncher.util.loadStylesheet dependency, =>
-        @_dependencies[dependency].loaded = true
+      KeyLauncher.util.loadStylesheet dependency, (loaded)=>
+        @onDependencyLoad.apply(@,arguments)
 
     for dependency, status of @_dependencies when status.loaded isnt true and dependency.match(/\.js/)
-      KeyLauncher.util.loadScript dependency, =>
-        @_dependencies[dependency].loaded = true
+      KeyLauncher.util.loadScript dependency, ()=>
+        @onDependencyLoad.apply(@,arguments)
 
   requires: (dependency)->
-    @_dependencies[dependency] = 
+    @_dependencies[dependency] =
       loaded: false
 
-  #### Private Methods    
+  #### Private Methods
 
   isReady: ()->
     ready = true
@@ -41,8 +41,10 @@ class window.KeyLauncher.Launcher
 
     ready
 
-  onDependencyLoad: (dependency)->
+  onDependencyLoad: (loaded)->
+    @_dependencies[loaded].loaded = true
     @onReady() if @isReady()
 
   onReady: ()->
-    @fn.call(window, @)
+    @fn.call(window, @) unless @called
+    @called = true
