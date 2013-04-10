@@ -18,7 +18,7 @@ KeyLauncher.on "shift+command+j", ()->
   alert 'normal key commands work too'
 
 # Specify dependencies to load before running the command
-window.requiresLauncher = KeyLauncher.on "command+j", ()->
+KeyLauncher.on "command+j", ()->
   if _.isObject(Backbone)
     $('body').append "We loaded underscore, backbone, and zepto"
 
