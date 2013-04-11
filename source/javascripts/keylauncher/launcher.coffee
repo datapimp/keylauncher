@@ -7,8 +7,11 @@ class window.KeyLauncher.Launcher
     @fn = options.fn
     @command = options.command
 
-    for dependency in @options.requires
-      @_dependencies[dependency] = loaded: false
+    for dependency, source of @options.requires
+      @_dependencies[source] =
+        loaded: false
+        provides: dependency
+
 
   # The run method gets triggered when the keycommand
   # is detected, it will ensure all of the dependencies
@@ -16,15 +19,19 @@ class window.KeyLauncher.Launcher
   # it will run the user specified method and launch the
   # application.
   run: ()->
+    @called = false
+
     return @onReady() if @isReady()
 
-    for dependency, status of @_dependencies when status.loaded isnt true and dependency.match(/\.css/)
-      KeyLauncher.util.loadStylesheet dependency, (loaded)=>
-        @onDependencyLoad.apply(@,arguments)
+    for url, state of @_dependencies
+      try
+        state.loaded = eval(state.provides)?
+      catch e
+        state.loaded = false
 
-    for dependency, status of @_dependencies when status.loaded isnt true and dependency.match(/\.js/)
-      KeyLauncher.util.loadScript dependency, ()=>
-        @onDependencyLoad.apply(@,arguments)
+      if state.loaded isnt true
+        type = if url.match(/\.css/) then "stylesheet" else "script"
+        KeyLauncher.loaders[type](url,(loaded)=> @onDependencyLoad(loaded) )
 
   requires: (dependency)->
     @_dependencies[dependency] =
@@ -47,4 +54,6 @@ class window.KeyLauncher.Launcher
 
   onReady: ()->
     @fn.call(window, @) unless @called
-    @called = true
+    setTimeout ()=>
+      @called = true
+    , 20

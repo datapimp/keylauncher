@@ -4,7 +4,7 @@
 #= require ./keylauncher/launcher.js
 #= require_self
 
-KeyLauncher.VERSION = "0.0.2"
+KeyLauncher.VERSION = "0.0.3"
 
 KeyLauncher.on = (keycommand, launchFn, options={})->
   throw "Must specify a valid key command" unless keycommand?

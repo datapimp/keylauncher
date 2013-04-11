@@ -1,19 +1,21 @@
 window.KeyLauncher ||= {}
-window.KeyLauncher.util ||= {}
+window.KeyLauncher.loaders ||= {}
 
-loadedScripts = {}
-scriptTimers = {}
+window.loadedScripts = {}
+window.scriptTimers = {}
 
-KeyLauncher.util.loadStylesheet = (url, options={}, callback)->
+KeyLauncher.loaders.stylesheet = (url, options={}, callback)->
   ss = document.createElement("link")
   ss.type = "text/css"
   ss.rel = "stylesheet"
-  ss.href = url 
-  document.getElementsByTagName("head")[0].appendChild(ss);  
+  ss.href = url
+  document.getElementsByTagName("head")[0].appendChild(ss);
+  callback.call(@)
 
-KeyLauncher.util.loadScript = (url, options={}, callback) ->
-  loaded = loadedScripts 
-  timers = scriptTimers 
+KeyLauncher.loaders.script = (url, options={}, callback) ->
+  console.log "loaders script", url
+  loaded = loadedScripts
+  timers = scriptTimers
 
   if typeof(options) is "function" and !callback?
     callback = options
@@ -27,13 +29,13 @@ KeyLauncher.util.loadScript = (url, options={}, callback) ->
   that = @
   onLoad = ()->
     if typeof(callback) is "function"
-      callback.call(that, url, options, script) 
+      callback.call(that, url, options, script)
 
     try
       head.removeChild(script)
     catch e
-      true  
-      
+      true
+
     loaded[url] = true
 
   if options.once is true && loaded[url]
@@ -50,5 +52,6 @@ KeyLauncher.util.loadScript = (url, options={}, callback) ->
   if navigator?.userAgent.match(/WebKit/)
     timers[url] = setInterval ()->
       onLoad()
+      console.log "wtf", url, timers[url]
       clearInterval(timers[url])
-    , 10
+    , 500
