@@ -13,7 +13,6 @@ KeyLauncher.loaders.stylesheet = (url, options={}, callback)->
   callback.call(@)
 
 KeyLauncher.loaders.script = (url, options={}, callback) ->
-  console.log "loaders script", url
   loaded = loadedScripts
   timers = scriptTimers
 
@@ -52,6 +51,5 @@ KeyLauncher.loaders.script = (url, options={}, callback) ->
   if navigator?.userAgent.match(/WebKit/)
     timers[url] = setInterval ()->
       onLoad()
-      console.log "wtf", url, timers[url]
       clearInterval(timers[url])
-    , 500
+    , 10

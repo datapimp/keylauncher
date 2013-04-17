@@ -9,26 +9,23 @@ I use this library to embed small single purpose javascript widgets and applicat
 An example: as an app which takes a screenshot of the current webpage with a bug on it, and submits a github issue with that data.
 
 ```coffeescript
-# Whenever the user types the word 'shake' in a non text input
-KeyLauncher.onSequence "shake", ()->
-  $('body').html '<iframe width="560" height="315" src="http://www.youtube.com/embed/3R8HGsbI4QY" frameborder="0" allowfullscreen></iframe>'
-, requires:[
-  "//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js",
-]
-
-# Basic delegate to keymaster
-KeyLauncher.on "shift+command+j", ()->
-  alert 'normal key commands work too'
+# Allow your users to say 'sup'
+KeyLauncher.onSequence "sup", ()->
+  alert('sup')
+  $('body').append "<h5>Now type ctrl+j</h5>"
 
 # Specify dependencies to load before running the command
-KeyLauncher.on "command+j", ()->
+KeyLauncher.on "ctrl+j", ()->
   if _.isObject(Backbone)
-    $('body').append "We loaded underscore, backbone, and zepto"
+    $('body').append "We loaded underscore, backbone, and zepto as well as my library"
 
-, requires:[
-  "//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js",
-  "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js",
-  "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"
-]
+    MyLibrary.doSomething()
+
+, requires:
+    "$": "//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"
+    "_": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"
+    "Backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"
+    "MyLibrary": "//github.com/datapimp/my-library.js"
+
 ```
 

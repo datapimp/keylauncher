@@ -1,14 +1,10 @@
-KeyLauncher.onSequence "shake", ()->
-  $('body').html '<iframe width="560" height="315" src="http://www.youtube.com/embed/3R8HGsbI4QY" frameborder="0" allowfullscreen></iframe>'
-, requires:
-  "$": "//cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"
-
-# Basic delegate to keymaster
-KeyLauncher.on "shift+command+j", ()->
-  alert 'normal key commands work too'
+# Allow your users to say what up
+KeyLauncher.onSequence "sup", ()->
+  alert('sup')
+  $('body').append "<h5>Now type ctrl+j</h5>"
 
 # Specify dependencies to load before running the command
-KeyLauncher.on "command+j", ()->
+KeyLauncher.on "ctrl+j", ()->
   if _.isObject(Backbone)
     $('body').append "We loaded underscore, backbone, and zepto"
 
