@@ -1,25 +1,27 @@
 # Allow your users to say what up
 KeyLauncher.onSequence "sup", ()->
-  alert('sup')
-  $('body').append "<h5>Now type ctrl+j</h5>"
+  $('.container-fluid').append "<h4>Sup...</h4>"
+  $('.container-fluid').append "<p><strong>Now type ctrl+j</strong></p>"
 
   if $('.example-wrapper').length is 0
-    $('body').append "<div class='example-wrapper'></div>"
+    $('.container-fluid').append "<div class='example-wrapper'></div>"
 
 # Specify dependencies to load before running the command
 KeyLauncher.on "ctrl+j", ()->
   $('.example-wrapper').empty()
 
   if _.isObject(Backbone)
-    $('.example-wrapper').append "<p>We loaded underscore, backbone, and zepto</p>"
+    $('.example-wrapper').append "<p>We delayed loading underscore, backbone, and zepto, and other potentially heavy dependencies until if and only if the key command is run.</p>"
 
     View = Backbone.View.extend
+      className: "modal fade hide"
       render: ()->
-        @$el.html("Here is a Backbone.View getting rendered on demand")
+        @$el.html("<div class='modal-body'>Now, here is a Backbone.View getting rendered on demand</div>")
         @
 
     view = new View()
-    $('.example-wrapper').append( view.render().el )
+    $('body').append( view.render().$el )
+    view.$el.modal('show')
 
 ,
 requires:
@@ -27,5 +29,4 @@ requires:
     "_": "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"
     "Backbone": "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"
 before: ()->
-  if typeof(Backbone) is "undefined"
-    $('.example-wrapper').empty().append "<p>Backbone isn't defined, we're going to load it before doing anything...</p>"
+  alert 'before we run this, we can hook in and do our own setup tasks...'

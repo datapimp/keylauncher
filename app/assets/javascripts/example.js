@@ -1,10 +1,10 @@
 (function() {
 
   KeyLauncher.onSequence("sup", function() {
-    alert('sup');
-    $('body').append("<h5>Now type ctrl+j</h5>");
+    $('.container-fluid').append("<h4>Sup...</h4>");
+    $('.container-fluid').append("<p><strong>Now type ctrl+j</strong></p>");
     if ($('.example-wrapper').length === 0) {
-      return $('body').append("<div class='example-wrapper'></div>");
+      return $('.container-fluid').append("<div class='example-wrapper'></div>");
     }
   });
 
@@ -12,15 +12,17 @@
     var View, view;
     $('.example-wrapper').empty();
     if (_.isObject(Backbone)) {
-      $('.example-wrapper').append("<p>We loaded underscore, backbone, and zepto</p>");
+      $('.example-wrapper').append("<p>We delayed loading underscore, backbone, and zepto, and other potentially heavy dependencies until if and only if the key command is run.</p>");
       View = Backbone.View.extend({
+        className: "modal fade hide",
         render: function() {
-          this.$el.html("Here is a Backbone.View getting rendered on demand");
+          this.$el.html("<div class='modal-body'>Now, here is a Backbone.View getting rendered on demand</div>");
           return this;
         }
       });
       view = new View();
-      return $('.example-wrapper').append(view.render().el);
+      $('body').append(view.render().$el);
+      return view.$el.modal('show');
     }
   }, {
     requires: {
@@ -29,9 +31,7 @@
       "Backbone": "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"
     },
     before: function() {
-      if (typeof Backbone === "undefined") {
-        return $('.example-wrapper').empty().append("<p>Backbone isn't defined, we're going to load it before doing anything...</p>");
-      }
+      return alert('before we run this, we can hook in and do our own setup tasks...');
     }
   });
 
