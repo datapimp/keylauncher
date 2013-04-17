@@ -25,13 +25,4 @@
       %p
         %strong Type 'sup'
   .span8
-    %pre.prettyprint
-      :preserve
-        KeyLauncher.onSequence "sup", ()->
-          alert('sup')
-
-        expensiveFunction = ()->
-          # do some stuff which requires on expensive libraries
-          # like jquery, underscore, backbone, etc
-
-        KeyLauncher.on "ctrl+j", expensiveFunction, requires:["//my-cdn/dependencies.js"]
+    %script{:src=>"https://gist.github.com/datapimp/5401319.js"}
