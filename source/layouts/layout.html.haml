@@ -6,22 +6,22 @@
   %head
     %meta{:charset => "utf-8"}
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
-    
-    
-    %meta{:content => "width=device-width", :name => "viewport"}
-  
-    %script{:type=>"text/javascript",:src=>"//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"}    
 
-    %link{:rel=>"stylesheet",:href=>"//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"}
-    %link{:rel=>"stylesheet",:href=>"//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"}
+
+    %meta{:content => "width=device-width", :name => "viewport"}
+
+    %script{:type=>"text/javascript",:src=>"http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"}
+
+    %link{:rel=>"stylesheet",:href=>"http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css"}
+    %link{:rel=>"stylesheet",:href=>"http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"}
   %body
     .container-fluid{:style=>"padding-top:40px;"}
-      = yield                
+      = yield
 
-    %script{:type=>"text/javascript",:src=>"//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"}
-    %script{:type=>"text/javascript",:src=>"//cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"}
-    %script{:type=>"text/javascript",:src=>"//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"}
-    
-    = javascript_include_tag 'keylauncher', 'example'    
+    %script{:type=>"text/javascript",:src=>"http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"}
+    %script{:type=>"text/javascript",:src=>"http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"}
+    %script{:type=>"text/javascript",:src=>"http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"}
+
+    = javascript_include_tag 'keylauncher', 'example'
 
 
