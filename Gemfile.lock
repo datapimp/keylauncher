@@ -99,4 +99,5 @@ PLATFORMS
 DEPENDENCIES
   haml
   middleman (~> 3.0.13)
+  middleman-sprockets
   sass

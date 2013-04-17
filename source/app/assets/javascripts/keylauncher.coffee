@@ -11,6 +11,7 @@ KeyLauncher.on = (keycommand, launchFn, options={})->
   launcher = new KeyLauncher.Launcher
     command: keycommand
     fn: launchFn || ->
+    before: options.before
     requires: options.requires || []
 
   key keycommand, ->
@@ -40,6 +41,7 @@ KeyLauncher.onSequence = (sequence, launchFn, options={})->
   launcher = KeyLauncher.sequences[sequence] = new KeyLauncher.Launcher
     fn: launchFn || ->
     requires: options.requires || []
+    before: options.before
 
   for character in sequence.split('')
     key character, _checkSequence

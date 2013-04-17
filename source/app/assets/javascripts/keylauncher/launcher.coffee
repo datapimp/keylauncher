@@ -5,6 +5,7 @@ class window.KeyLauncher.Launcher
 
   constructor: (@options={})->
     @fn = options.fn
+    @before = options.before
     @command = options.command
 
     for dependency, source of @options.requires
@@ -19,7 +20,9 @@ class window.KeyLauncher.Launcher
   # it will run the user specified method and launch the
   # application.
   run: ()->
-    @called = false
+    @ran = false
+
+    @before?.call?(@)
 
     return @onReady() if @isReady()
 
@@ -53,7 +56,8 @@ class window.KeyLauncher.Launcher
     @onReady() if @isReady()
 
   onReady: ()->
-    @fn.call(window, @) unless @called
-    setTimeout ()=>
-      @called = true
-    , 20
+    return unless @isReady() and @ran is false
+
+    do =>
+      @fn.call(@)
+      @ran = true
