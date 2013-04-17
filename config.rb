@@ -48,15 +48,16 @@ require 'haml'
 #   end
 # end
 
-set :css_dir, 'stylesheets'
+set :css_dir, 'app/assets/stylesheets'
 
-set :js_dir, 'javascripts'
+set :js_dir, 'app/assets/javascripts'
 
-set :images_dir, 'images'
+set :images_dir, 'app/assets/images'
 
 after_build do
-  `cp build/javascripts/keylauncher.js keylauncher.js`
+  `cp build/app/assets/javascripts/keylauncher.js keylauncher.js`
   `uglifyjs keylauncher.js > keylauncher.min.js`
+  `cp -r build/* .`
 end
 
 # Build-specific configuration
