@@ -1,7 +1,7 @@
 %h1 KeyLauncher.js
 
 %p
-  Keylauncher is a small library that allows you to trigger the execution of a block of javascript code
+  Keylauncher is a small javascript library that allows you to trigger the execution of a block of javascript code
   along with the optional loading of external javascript and css resources, in response to certain key
   sequences or keystrokes.
 
@@ -9,8 +9,29 @@
   It is perfect for embedding development / support / diagnostic tools in websites, but only loading
   the dependencies required to run them when you want, and not making your users load them.
 
-%p
-  %strong See it in action:
+%a.btn.btn-large{:href=>"https://github.com/datapimp/keylauncher"}
+  %i.icon.icon-github
+    Contribute
 
-%p
-  %strong Type 'sup'
+%a.btn.btn-large{:href=>"http://datapimp.github.io/keylauncher/keylauncher.min.js"}
+  %i.icon.icon-chevron-down
+    Download
+
+%h5 See it in action:
+
+.row-fluid
+  .span4
+    .well.example-wrapper
+      %p
+        %strong Type 'sup'
+  .span8
+    %pre.prettyprint
+      :preserve
+        KeyLauncher.onSequence "sup", ()->
+          alert('sup')
+
+        expensiveFunction = ()->
+          # do some stuff which requires on expensive libraries
+          # like jquery, underscore, backbone, etc
+
+        KeyLauncher.on "ctrl+j", expensiveFunction, requires:["//my-cdn/dependencies.js"]

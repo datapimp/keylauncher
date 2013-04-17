@@ -15,7 +15,7 @@
     <div class='container-fluid' style='padding-top:40px;'>
       <h1>KeyLauncher.js</h1>
       <p>
-        Keylauncher is a small library that allows you to trigger the execution of a block of javascript code
+        Keylauncher is a small javascript library that allows you to trigger the execution of a block of javascript code
         along with the optional loading of external javascript and css resources, in response to certain key
         sequences or keystrokes.
       </p>
@@ -23,17 +23,37 @@
         It is perfect for embedding development / support / diagnostic tools in websites, but only loading
         the dependencies required to run them when you want, and not making your users load them.
       </p>
-      <p>
-        <strong>See it in action:</strong>
-      </p>
-      <p>
-        <strong>Type 'sup'</strong>
-      </p>
+      <a class='btn btn-large' href='https://github.com/datapimp/keylauncher'>
+        <i class='icon icon-github'>
+          Contribute
+        </i>
+      </a>
+      <a class='btn btn-large' href='http://datapimp.github.io/keylauncher/keylauncher.min.js'>
+        <i class='icon icon-chevron-down'>
+          Download
+        </i>
+      </a>
+      <h5>See it in action:</h5>
+      <div class='row-fluid'>
+        <div class='span4'>
+          <div class='well example-wrapper'>
+            <p>
+              <strong>Type 'sup'</strong>
+            </p>
+          </div>
+        </div>
+        <div class='span8'>
+          <pre class='prettyprint'>KeyLauncher.onSequence "sup", ()->&#x000A;  alert('sup')&#x000A;&#x000A;expensiveFunction = ()->&#x000A;  # do some stuff which requires on expensive libraries&#x000A;  # like jquery, underscore, backbone, etc&#x000A;&#x000A;KeyLauncher.on "ctrl+j", expensiveFunction, requires:["//my-cdn/dependencies.js"]</pre>
+        </div>
+      </div>
     </div>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js' type='text/javascript'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js' type='text/javascript'></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js' type='text/javascript'></script>
     <script src="app/assets/javascripts/keylauncher.js" type="text/javascript"></script>
     <script src="app/assets/javascripts/example.js" type="text/javascript"></script>
+    <script>
+      prettyPrint()
+    </script>
   </body>
 </html>
