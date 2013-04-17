@@ -11,12 +11,11 @@ KeyLauncher.on "ctrl+j", ()->
   $('.example-wrapper').empty()
 
   if _.isObject(Backbone)
-    $('.example-wrapper').append "<p>We delayed loading underscore, backbone, and zepto, and other potentially heavy dependencies until if and only if the key command is run.</p>"
 
     View = Backbone.View.extend
       className: "modal fade hide"
       render: ()->
-        @$el.html("<div class='modal-body'>Now, here is a Backbone.View getting rendered on demand</div>")
+        @$el.html("<div class='modal-body'>We delayed loading potentially expensive dependencies to run this command until if and only if the key sequence or command was triggered...Now, here is a Backbone.View getting rendered on demand</div>")
         @
 
     view = new View()
